@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* LOADING */
+#loading{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#ff758c;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size:20px;
+  z-index:10;
+}
+
+/* CARD */
+.card{
+  text-align:center;
+  color:white;
+  background: rgba(255,255,255,0.2);
+  padding:40px;
+  border-radius:25px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  animation:fade 2s;
+}
+
+/* TEXT */
+h1{
+  font-size:2.5em;
+  margin-bottom:10px;
+}
+h2{
+  font-weight:300;
+}
+
+/* BUTTON */
+button{
+  margin-top:20px;
+  padding:12px 25px;
+  border:none;
+  border-radius:15px;
+  background:white;
+  color:#ff4b7d;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+button:hover{
+  transform:scale(1.1);
+}
+
+/* ANIMATIONS */
+@keyframes fade{
+  from{opacity:0; transform:translateY(40px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* PARTICLES */
+.heart{
+  position:absolute;
+  color:white;
+  font-size:20px;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading">Loading love... 💖</div>
+
+<div class="card" style="display:none;">
+  <h1>Happy Birthday 💖</h1>
+  <h2 id="nama"></h2>
+  <p id="pesan"></p>
+
+  <button onclick="playMusic()">Play Music 🎵</button>
+  <button onclick="confetti()">Klik Aku 🎊</button>
+</div>
+
+<audio id="music" src="music.mp3"></audio>
+
+<script>
+// LOADING SCREEN
+setTimeout(()=>{
+  document.getElementById("loading").style.display="none";
+  document.querySelector(".card").style.display="block";
+},2000);
+
+// GET PARAM
+const params = new URLSearchParams(window.location.search);
+
+document.getElementById("nama").innerText =
+  params.get("nama") || "My Love 💕";
+
+document.getElementById("pesan").innerText =
+  params.get("pesan") || "Semoga kamu selalu bahagia 💖";
+
+// MUSIC
+function playMusic(){
+  document.getElementById("music").play();
+}
+
+// CONFETTI SIMPLE
+function confetti(){
+  alert("I Love You 💖");
+}
+
+// FLOATING HEARTS
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random()*100 + "vw";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{ heart.remove(); },5000);
+}
+setInterval(createHeart,500);
+</script>
+
+</body>
+</html>
